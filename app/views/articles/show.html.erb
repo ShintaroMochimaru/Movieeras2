@@ -1,0 +1,59 @@
+<div class= "container">
+	<div class="col-md-12 margin-top-5per article-block ">
+		<% if @article.image_id.present? %>
+		<%= image_tag attachment_url(@article, :image), class: 'article-image padding-top-15' %>
+		<% else %>
+		<%= image_tag 'noimage.png', class: 'article-image padding-top-15' %>
+		<% end %>
+		<h1><%= @article.title %></h1>
+			<div class="padding-bottom-15" style='padding: 10px' >
+			  	<%= simple_format @article.body %>
+	    			<p class="text-right">
+						<%= @article.created_at.strftime('%Y/%m/%d') %>
+					</p>
+			</div>
+		<% if @article.user_id == current_user.id %>
+			<%= link_to '編集', edit_article_path(@article), class: 'btn btn-primary', style:'margin-bottom: 10px: margin-right: 10px' %>
+				<%= link_to '削除', article_path(@article), method: :delete, "data-confirm" => "本当に削除しますか？", class: 'btn btn-danger', style:'margin-bottom: 10px: margin-right: 10px' %>
+		<% end %>
+	</div>
+	<div class="comment-list bt style-2" id="comments">
+    	<div class="float-wrapper">
+           <h2 class="comment-count"><%= @article.comments.count %>件コメント</h2>
+        </div>
+           <ol>
+              <% @article.comments.each do |comment| %>
+			    <li class="comment">
+			        <div class="comment-body bb">
+			            <div class="comment-text comment-size">
+			                <div class="comment-author clearfix ">
+			                    <span class="comment-meta ">
+
+ 			                    <p class="text-right">
+			                      <span class="comment-date time"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
+			                  </p>
+			                    </span>
+			                </div>
+			                <div class="comment-entry"><%= comment.comment %></div>
+			            </div>
+			        </div>
+			    </li>
+			  <% end %>
+			</ol>
+ 	</div>
+
+	 <div class="section-title-wrapper style-1 v1 mt-30" id="divAddComment">
+         <h3 class="section-title left">
+              <span>コメント</span>
+         </h3>
+     </div>
+          <%= form_for [@article, @comment] do |f| %>
+    		<div class="row">
+        		<div class="col-sm-12">
+            		<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+        		</div>
+    		</div>
+    			<%= f.submit "送信する", class: "btn btn-success btn-base-1 mt-20 pull-right" %>
+    			<%= link_to "戻る", articles_path, class: "btn btn-primary btn-base-1 mt-20 pull-right" %>
+		 <% end %>
+</div>

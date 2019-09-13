@@ -1,0 +1,18 @@
+<div class= "container">
+ 	<div class="row">
+		<% @articles.each do |article| %>
+			<div class="col-md-3 margin-top-5per article-block ">
+				<%= link_to article do %>
+					<div class="padding-bottom-20">
+						<%= attachment_image_tag article, :image, fallback: "noimage.png", size: "30x30", class:"img-responsive padding-top-15 article-list-image" %>
+						<p class="title"><%= article.title %></p>
+						<span><%= article.created_at.strftime('%Y/%m/%d') %></span>
+					</div>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+	<div class="row">
+		<%= link_to '新規投稿', new_article_path, class: 'margin-top-5per btn btn-primary' %>
+	</div>
+</div>
