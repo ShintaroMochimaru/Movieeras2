@@ -21,8 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-#半角スペース２個分の空白を開ける
   <<: *default
-  adapter: postgresql
-  encoding: unicode
-  pool: 50
+  database: Movieeras2
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_general_ci
+  host: rds-mysql-server.cg2uvwrtsjyp.us-east-2.rds.amazonaws.com
+  username: root
+  password: Z1z1shin10ro

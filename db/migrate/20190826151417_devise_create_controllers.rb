@@ -2,7 +2,7 @@
 
 class DeviseCreateControllers < ActiveRecord::Migration[5.2]
   def change
-    create_table :controllers do |t|
+    create_table :controllers, :options => 'ENGINE=InnoDB ROW_FORMAT=DYNAMIC' do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
